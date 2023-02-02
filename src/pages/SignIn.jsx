@@ -73,6 +73,7 @@ const SignIn = () => {
               placeholder="test@example.com"
               value={email}
               onChange={handleEmail}
+              data-testid="email-input"
             />
           </label>
         </div>
@@ -87,11 +88,14 @@ const SignIn = () => {
               placeholder="8자 이상"
               value={pw}
               onChange={handlePw}
+              data-testid="password-input"
             />
           </label>
         </div>
         {!pwValid && pw.length > 0 ? "8자 이상 입력하세요" : ""}
-        <button disabled={btnOn}>로그인</button>
+        <button disabled={btnOn} data-testid="signin-button">
+          로그인
+        </button>
       </form>
     </>
   );
