@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LoginAPI } from "../tools/instance";
+import { LoginAPI, token } from "../tools/instance";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  if (token) navigate("/todo");
 
   //이메일 비밀번호 확인
   const [email, setEmail] = useState("");
