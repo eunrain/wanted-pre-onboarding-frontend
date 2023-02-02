@@ -5,7 +5,7 @@ const instance = axios.create({
 });
 
 export const SignUpAPI = {
-  signUp: (payload) => instance.post(`/auth/signup`, payload),
+  signUp: (payload) => instance.post(`auth/signup`, payload),
 };
 
 export const LoginAPI = {
