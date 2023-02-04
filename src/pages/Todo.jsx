@@ -5,6 +5,7 @@ import { TodoAPI } from "../tools/instance";
 const Todo = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+
   useEffect(() => {
     if (!token) {
       navigate("/signin");
@@ -18,18 +19,6 @@ const Todo = () => {
   const [isEdit, setIsEdit] = useState(true);
   const [editId, setEditId] = useState(0);
   const [updateToDo, setUpdateToDo] = useState("");
-
-  const addOnChange = (e) => {
-    setToDo(e.target.value);
-  };
-
-  const updateOnChange = (e) => {
-    setUpdateToDo(e.target.value);
-  };
-
-  // useEffect(() => {
-  //   getTodo();
-  // }, []);
 
   //todo 불러오기
   const getTodo = () => {
@@ -77,6 +66,7 @@ const Todo = () => {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <>
       <div>TodoList</div>
@@ -84,8 +74,8 @@ const Todo = () => {
         <input
           type="text"
           value={toDo}
-          onChange={addOnChange}
-          ata-testid="new-todo-input"
+          onChange={(e) => setToDo(e.target.value)}
+          data-testid="new-todo-input"
         />
         <button data-testid="new-todo-add-button">추가</button>
         <hr />
@@ -112,7 +102,7 @@ const Todo = () => {
                     <input
                       type="text"
                       defaultValue={todo.todo}
-                      onChange={updateOnChange}
+                      onChange={(e) => setUpdateToDo(e.target.value)}
                       data-testid="modify-input"
                     />
                     <button
