@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TodoAPI } from "../tools/instance";
+import Layout from "../components/Layout";
 
 const Todo = () => {
   const navigate = useNavigate();
@@ -54,11 +55,11 @@ const Todo = () => {
   };
 
   //todo 수정
-  const updateTodo = (data) => {
+  const updateTodo = (todo, checked, id) => {
     TodoAPI.updateTodo({
-      todo: data.todo,
-      isCompleted: data.isCompleted,
-      todoId: data.todoId,
+      todo: todo,
+      isCompleted: checked,
+      todoId: id,
     })
       .then((res) => {
         console.log(res);
@@ -68,7 +69,7 @@ const Todo = () => {
   };
 
   return (
-    <>
+    <Layout>
       <div>TodoList</div>
       <form onSubmit={addTodo}>
         <input
@@ -89,11 +90,11 @@ const Todo = () => {
                     checked={todo.isCompleted}
                     onChange={(e) => {
                       console.log(e.target.checked, todo.todo, todo.id);
-                      updateToDo({
-                        isCompleted: e.target.checked,
-                        todo: todo.todo,
-                        todoId: todo.id,
-                      });
+                      // updateToDo({
+                      //   isCompleted: e.target.checked,
+                      //   todo: todo.todo,
+                      //   todoId: todo.id,
+                      // });
                     }}
                   />
                 </label>
@@ -107,11 +108,7 @@ const Todo = () => {
                     />
                     <button
                       onClick={() => {
-                        updateTodo({
-                          isCompleted: todo.isCompleted,
-                          todoId: todo.id,
-                          todo: updateToDo,
-                        });
+                        updateTodo(updateToDo, todo.isCompleted, todo.id);
                         setIsEdit(true);
                       }}
                       data-testid="submit-button"
@@ -152,7 +149,7 @@ const Todo = () => {
           })}
         </ul>
       </form>
-    </>
+    </Layout>
   );
 };
 
