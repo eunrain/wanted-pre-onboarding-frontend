@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { TodoAPI } from "../tools/instance";
 import Layout from "../components/Layout";
 import styled from "styled-components";
+import {
+  BsFillXSquareFill,
+  BsCheckSquareFill,
+  BsFillTrashFill,
+  BsPencilSquare,
+} from "react-icons/bs";
 
 const Todo = () => {
   const navigate = useNavigate();
@@ -69,6 +75,11 @@ const Todo = () => {
       .catch((err) => console.log("err", err));
   };
 
+  const logout = () => {
+    localStorage.clear("token");
+    navigate("/signin");
+  };
+
   return (
     <Layout>
       <TodoWrap>
@@ -83,7 +94,7 @@ const Todo = () => {
             />
             <AddButton data-testid="new-todo-add-button">+</AddButton>
           </InputWrap>
-          <hr />
+          <Hr />
           <Ul>
             {toDoList.map((todo) => {
               return (
@@ -107,44 +118,44 @@ const Todo = () => {
                         data-testid="modify-input"
                       />
                       <Btns>
-                        <button
+                        <Button
                           onClick={() => {
                             updateTodo(updateToDo, todo.isCompleted, todo.id);
                             setIsEdit(true);
                           }}
                           data-testid="submit-button"
                         >
-                          제출
-                        </button>
-                        <button
+                          <BsCheckSquareFill size="20" cursor="pointer" />
+                        </Button>
+                        <Button
                           onClick={() => setIsEdit(true)}
                           data-testid="cancel-button"
                         >
-                          취소
-                        </button>
+                          <BsFillXSquareFill size="20" cursor="pointer" />
+                        </Button>
                       </Btns>
                     </>
                   ) : (
                     <>
                       <span>{todo.todo}</span>
                       <Btns>
-                        <button
+                        <Button
                           onClick={() => {
                             setIsEdit(false);
                             setEditId(todo.id);
                           }}
                           data-testid="modify-button"
                         >
-                          수정
-                        </button>
-                        <button
+                          <BsPencilSquare size="20" cursor="pointer" />
+                        </Button>
+                        <Button
                           onClick={() => {
                             deleteTodo(todo.id);
                           }}
                           data-testid="delete-button"
                         >
-                          삭제
-                        </button>
+                          <BsFillTrashFill size="20" cursor="pointer" />
+                        </Button>
                       </Btns>
                     </>
                   )}
@@ -154,6 +165,7 @@ const Todo = () => {
           </Ul>
         </form>
       </TodoWrap>
+      <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
     </Layout>
   );
 };
@@ -194,7 +206,6 @@ const AddButton = styled.button`
   color: #646eff;
   border-radius: 8px;
   font-size: 30px;
-  //font-weight: bold;
   cursor: pointer;
   margin-top: 4px;
 `;
@@ -202,6 +213,11 @@ const AddButton = styled.button`
 const Ul = styled.ul`
   list-style: none;
   padding-left: 0;
+  height: 48vh;
+  overflow: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Li = styled.li`
@@ -214,15 +230,43 @@ const Li = styled.li`
   border-radius: 8px;
   margin-bottom: 10px;
   span {
-    margin-right: px;
+    width: 70%;
+    white-space: nowrap;
+    overflow: hidden;
   }
 `;
 
 const ModifyInput = styled.input`
+  width: 70%;
   border: none;
   :focus {
     outline: none;
   }
 `;
 
-const Btns = styled.div``;
+const Btns = styled.div`
+  cursor: pointer;
+`;
+
+const LogoutBtn = styled.button`
+  float: right;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #bebebe;
+  width: 80px;
+  height: 30px;
+  color: #fff;
+  cursor: pointer;
+`;
+
+const Button = styled.button`
+  border: none;
+  background-color: transparent;
+  color: #646eff;
+`;
+
+const Hr = styled.hr`
+  border: 0.5px solid #bebebe;
+`;
