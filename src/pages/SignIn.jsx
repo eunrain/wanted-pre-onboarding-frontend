@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LoginAPI } from "../tools/instance";
+import Layout from "../components/Layout";
+import styled from "styled-components";
+import { BsFillPersonFill } from "react-icons/bs";
+import { IoIosLock } from "react-icons/io";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   useEffect(() => {
     if (token) {
-      navigate("/todo");
+      window.location.replace("/todo");
     }
   }, [token]);
 
@@ -38,7 +42,7 @@ const SignIn = () => {
     }
   };
 
-  const signupHandler = (e) => {
+  const signinHandler = (e) => {
     e.preventDefault();
     const data = { email: email, password: pw };
     LoginAPI.login(data)
@@ -67,45 +71,120 @@ const SignIn = () => {
   }, [emailValid, pwValid]);
 
   return (
-    <>
-      <div>SignIn</div>
-      <form onSubmit={signupHandler}>
-        <div>
-          <label>
-            이메일
-            <input
-              type="text"
-              name="id"
-              id="id"
-              placeholder="test@example.com"
-              value={email}
-              onChange={handleEmail}
-              data-testid="email-input"
-            />
-          </label>
-        </div>
-        {!emailValid && email.length > 0 ? "올바른 이메일을 입력해주세요" : ""}
-        <div>
-          <label>
-            비밀번호
-            <input
-              type="password"
-              name="pwd"
-              id="pwd"
-              placeholder="8자 이상"
-              value={pw}
-              onChange={handlePw}
-              data-testid="password-input"
-            />
-          </label>
-        </div>
-        {!pwValid && pw.length > 0 ? "8자 이상 입력하세요" : ""}
-        <button disabled={btnOn} data-testid="signin-button">
-          로그인
-        </button>
-      </form>
-    </>
+    <Layout>
+      <SignInWrap>
+        <Form onSubmit={signinHandler}>
+          <InputWrap>
+            <InputWrapLower>
+              <BsFillPersonFill size={24} color={"#949494"} />
+              <Input
+                type="text"
+                name="id"
+                id="id"
+                placeholder="이메일을 입력하세요"
+                value={email}
+                onChange={handleEmail}
+                data-testid="email-input"
+              />
+            </InputWrapLower>
+            {!emailValid && email.length > 0 ? (
+              <ErrorMsg>올바른 이메일을 입력해주세요</ErrorMsg>
+            ) : (
+              ""
+            )}
+            <InputWrapLower>
+              <IoIosLock size={24} color={"#949494"} />
+              <Input
+                type="password"
+                name="pwd"
+                id="pwd"
+                placeholder="비밀번호를 입력하세요"
+                value={pw}
+                onChange={handlePw}
+                data-testid="password-input"
+              />
+            </InputWrapLower>
+            {!pwValid && pw.length > 0 ? (
+              <ErrorMsg>8자 이상 입력하세요</ErrorMsg>
+            ) : (
+              ""
+            )}
+          </InputWrap>
+
+          <Button
+            bgColor="#646eff"
+            disabled={btnOn}
+            data-testid="signin-button"
+          >
+            로그인
+          </Button>
+          <Button
+            bgColor="#dcdcdc"
+            onClick={() => navigate("/signup")}
+            data-testid="signin-button"
+          >
+            회원가입
+          </Button>
+        </Form>
+      </SignInWrap>
+    </Layout>
   );
 };
 
 export default SignIn;
+
+const SignInWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px 0 20px;
+`;
+
+const Form = styled.form``;
+
+const InputWrap = styled.div`
+  width: 100%;
+  margin: auto;
+  margin-bottom: 20px;
+`;
+
+const InputWrapLower = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f4f4f4;
+  border: none;
+  border-radius: 8px;
+  padding: 3px 10px 3px 18px;
+  margin-bottom: 15px;
+`;
+
+const Input = styled.input`
+  width: 85%;
+  height: 35px;
+  border: none;
+  border-radius: 8px;
+  margin-left: 10px;
+  padding-left: 10px;
+  background-color: transparent;
+  :focus {
+    outline: none;
+  }
+`;
+
+const ErrorMsg = styled.div`
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #eb0000;
+`;
+const Button = styled.button`
+  width: 100%;
+  height: 40px;
+  background-color: ${(props) => props.bgColor};
+  border: none;
+  color: #fff;
+  border-radius: 12px;
+  margin-top: 10px;
+  font-weight: bold;
+  cursor: pointer;
+`;
