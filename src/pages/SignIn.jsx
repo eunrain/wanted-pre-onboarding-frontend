@@ -119,7 +119,7 @@ const SignIn = () => {
             로그인
           </Button>
           <Button
-            bgColor="#dcdcdc"
+            bgColor="	#CCE1FF"
             onClick={() => navigate("/signup")}
             data-testid="signin-button"
           >
@@ -137,6 +137,7 @@ const SignInWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px 0 20px;
+  margin-top: 20px;
 `;
 
 const Form = styled.form``;
@@ -187,4 +188,7 @@ const Button = styled.button`
   margin-top: 10px;
   font-weight: bold;
   cursor: pointer;
+  :disabled {
+    background-color: #bebebe;
+  }
 `;

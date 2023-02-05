@@ -15,9 +15,8 @@ const Wrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 180px;
+  height: 150px;
   font-size: 40px;
   font-weight: 700;
-  //background-color: skyblue;
   border-radius: 20px;
 `;
