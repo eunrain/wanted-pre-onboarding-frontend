@@ -1,14 +1,25 @@
 import axios from "axios";
 
-export const token = localStorage.getItem("token");
-
 const instance = axios.create({
   baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": `application/json`,
-    Authorization: `Bearer ${token}`,
   },
 });
+
+instance.interceptors.request.use(
+  (config) => {
+    // 요청이 전달되기 전 작업 수행
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const SignUpAPI = {
   signUp: (payload) => instance.post(`auth/signup`, payload),
@@ -21,9 +32,9 @@ export const LoginAPI = {
 export const TodoAPI = {
   createTodo: (payload) => instance.post(`todos`, payload),
   getTodos: () => instance.get(`todos`),
-  updateTodo: (payload) => {
+  updateTodo: async (payload) => {
     console.log(payload);
-    instance.put(`todos/${payload.todoId}`, {
+    return instance.put(`todos/${payload.todoId}`, {
       todo: payload.todo,
       isCompleted: payload.isCompleted,
     });

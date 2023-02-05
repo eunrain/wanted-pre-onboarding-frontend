@@ -122,6 +122,7 @@ const SignUpWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20px 0 20px;
+  margin-top: 20px;
 `;
 
 const Form = styled.form``;
@@ -172,4 +173,7 @@ const Button = styled.button`
   margin-top: 10px;
   font-weight: bold;
   cursor: pointer;
+  :disabled {
+    background-color: #bebebe;
+  }
 `;

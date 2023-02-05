@@ -19,7 +19,8 @@ const Wrap = styled.div`
   border-radius: 20px;
   box-shadow: 5px 10px 40px #aaaaaa;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   max-width: 400px;
   margin: auto;
+  margin-top: 30px;
 `;
