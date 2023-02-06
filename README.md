@@ -3,7 +3,7 @@
 ## 1. 프로젝트 소개
 원티드 프리온보딩 인턴십 선발 과제 입니다.
 <br/>
-[☑️배포링크]([https://wanted-pre-onboarding-frontend-mauve.vercel.app/](https://wanted-pre-onboarding-frontend-mauve.vercel.app/))
+[☑️배포링크](https://wanted-pre-onboarding-frontend-mauve.vercel.app/)
 
 <br/>
 
