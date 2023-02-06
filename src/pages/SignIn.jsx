@@ -54,7 +54,6 @@ const SignIn = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 404) {
           alert("해당 사용자가 존재하지 않습니다");
         }

@@ -44,7 +44,6 @@ const Todo = () => {
     const data = { todo: toDo };
     TodoAPI.createTodo(data)
       .then((res) => {
-        console.log(res);
         setToDoList((currentArray) => [res.data, ...currentArray]);
       })
       .catch((err) => console.log(err));
@@ -55,7 +54,6 @@ const Todo = () => {
   const deleteTodo = (data) => {
     TodoAPI.deleteTodo(data)
       .then((res) => {
-        console.log(res);
         alert("todo가 삭제 되었습니다");
         getTodo();
       })
@@ -70,7 +68,6 @@ const Todo = () => {
       todoId: id,
     })
       .then((res) => {
-        console.log(res);
         getTodo();
       })
       .catch((err) => console.log("err", err));
