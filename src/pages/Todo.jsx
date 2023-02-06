@@ -24,7 +24,7 @@ const Todo = () => {
 
   const [toDo, setToDo] = useState("");
   const [toDoList, setToDoList] = useState([]);
-  const [isEdit, setIsEdit] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
   const [editId, setEditId] = useState(0);
   const [updateToDo, setUpdateToDo] = useState("");
 
@@ -70,6 +70,7 @@ const Todo = () => {
       todoId: id,
     })
       .then((res) => {
+        console.log(res);
         getTodo();
       })
       .catch((err) => console.log("err", err));
@@ -83,7 +84,7 @@ const Todo = () => {
   return (
     <Layout>
       <TodoWrap>
-        <form onSubmit={addTodo}>
+        <Form onSubmit={addTodo}>
           <InputWrap>
             <AddInput
               type="text"
@@ -100,35 +101,35 @@ const Todo = () => {
               return (
                 <Li key={todo.id}>
                   <label>
-                    <input
+                    <Input
                       type="checkbox"
                       checked={todo.isCompleted}
                       onChange={(e) => {
-                        console.log(e.target.checked, todo.todo, todo.id);
                         updateTodo(todo.todo, e.target.checked, todo.id);
                       }}
                     />
                   </label>
-                  {!isEdit && todo.id === editId ? (
+                  {isEdit && todo.id === editId ? (
                     <>
                       <ModifyInput
                         type="text"
                         defaultValue={todo.todo}
                         onChange={(e) => setUpdateToDo(e.target.value)}
                         data-testid="modify-input"
+                        autoFocus
                       />
                       <Btns>
                         <Button
                           onClick={() => {
                             updateTodo(updateToDo, todo.isCompleted, todo.id);
-                            setIsEdit(true);
+                            setIsEdit(false);
                           }}
                           data-testid="submit-button"
                         >
                           <BsCheckSquareFill size="20" cursor="pointer" />
                         </Button>
                         <Button
-                          onClick={() => setIsEdit(true)}
+                          onClick={() => setIsEdit(false)}
                           data-testid="cancel-button"
                         >
                           <BsFillXSquareFill size="20" cursor="pointer" />
@@ -141,7 +142,7 @@ const Todo = () => {
                       <Btns>
                         <Button
                           onClick={() => {
-                            setIsEdit(false);
+                            setIsEdit(true);
                             setEditId(todo.id);
                           }}
                           data-testid="modify-button"
@@ -163,7 +164,7 @@ const Todo = () => {
               );
             })}
           </Ul>
-        </form>
+        </Form>
       </TodoWrap>
       <LogoutBtn onClick={logout}>로그아웃</LogoutBtn>
     </Layout>
@@ -270,3 +271,7 @@ const Button = styled.button`
 const Hr = styled.hr`
   border: 0.5px solid #bebebe;
 `;
+
+const Form = styled.form``;
+
+const Input = styled.input``;

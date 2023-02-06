@@ -47,7 +47,6 @@ const SignIn = () => {
     const data = { email: email, password: pw };
     LoginAPI.login(data)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           alert("로그인이 완료되었습니다");
           localStorage.setItem("token", res.data.access_token);
@@ -55,6 +54,7 @@ const SignIn = () => {
         }
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.status === 404) {
           alert("해당 사용자가 존재하지 않습니다");
         }
@@ -118,11 +118,7 @@ const SignIn = () => {
           >
             로그인
           </Button>
-          <Button
-            bgColor="	#CCE1FF"
-            onClick={() => navigate("/signup")}
-            data-testid="signin-button"
-          >
+          <Button bgColor="	#CCE1FF" onClick={() => navigate("/signup")}>
             회원가입
           </Button>
         </Form>

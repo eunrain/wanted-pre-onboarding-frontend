@@ -45,13 +45,19 @@ const SignUp = () => {
   const signupHandler = (e) => {
     e.preventDefault();
     const data = { email: email, password: pw };
-    SignUpAPI.signUp(data).then((res) => {
-      console.log(res);
-      if (res.status === 201) {
-        alert("회원가입이 완료되었습니다");
-        navigate("/signin");
-      }
-    });
+    SignUpAPI.signUp(data)
+      .then((res) => {
+        if (res.status === 201) {
+          alert("회원가입이 완료되었습니다");
+          navigate("/signin");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 400) {
+          alert("동일한 이메일이 이미 존재합니다");
+        }
+      });
   };
 
   //이메일, 비밀번호의 valid state 값이 변경될때마다, 버튼 활성화 유무 check
@@ -163,6 +169,7 @@ const ErrorMsg = styled.div`
   margin-bottom: 10px;
   color: #eb0000;
 `;
+
 const Button = styled.button`
   width: 100%;
   height: 40px;

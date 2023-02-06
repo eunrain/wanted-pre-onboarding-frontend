@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: process.env.REACT_APP_SERVER,
   headers: {
     "Content-Type": `application/json`,
   },
@@ -32,8 +32,7 @@ export const LoginAPI = {
 export const TodoAPI = {
   createTodo: (payload) => instance.post(`todos`, payload),
   getTodos: () => instance.get(`todos`),
-  updateTodo: async (payload) => {
-    console.log(payload);
+  updateTodo: (payload) => {
     return instance.put(`todos/${payload.todoId}`, {
       todo: payload.todo,
       isCompleted: payload.isCompleted,
