@@ -8,10 +8,18 @@
 <br/>
 
 ## 2. 프로젝트 실행 방법
+1. root폴더에 .env 파일을 생성합니다.
+```
+REACT_APP_SERVER = https://pre-onboarding-selection-task.shop/
+```
+2. 아래 명령어로 의존성 패키지들을 설치합니다.
 ```
 yarn install
-yarn start
 ````
+3. 아래 명령어로 실행시킵니다.
+```
+yarn start
+```
 
 <br/>
 
