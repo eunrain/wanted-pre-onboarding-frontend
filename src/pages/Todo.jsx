@@ -97,7 +97,6 @@ const Todo = () => {
             {toDoList.map((todo) => {
               return (
                 <Li key={todo.id}>
-                  <label>
                     <Input
                       type="checkbox"
                       checked={todo.isCompleted}
@@ -105,7 +104,6 @@ const Todo = () => {
                         updateTodo(todo.todo, e.target.checked, todo.id);
                       }}
                     />
-                  </label>
                   {isEdit && todo.id === editId ? (
                     <>
                       <ModifyInput
